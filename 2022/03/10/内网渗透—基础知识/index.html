@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="内网渗透—基础知识"><meta name="keywords" content=""><meta name="author" content="Dar1in9"><meta name="copyright" content="Dar1in9"><title>内网渗透—基础知识 | Dar1in9's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"MY1GAADR9W","apiKey":"5032629da4e94f659d98a4052bc1c5cd","indexName":"blog","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%BB%84%E5%92%8C%E5%9F%9F"><span class="toc-number">1.</span> <span class="toc-text">工作组和域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">活动目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%9F%9F%E7%9A%84%E5%88%92%E5%88%86"><span class="toc-number">3.</span> <span class="toc-text">安全域的划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E4%B8%AD%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">域中计算机的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E6%9D%83%E9%99%90%E8%A7%A3%E8%AF%BB"><span class="toc-number">5.</span> <span class="toc-text">域内权限解读</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/kakashi-cat.jpg"></div><div class="author-info__name text-center">Dar1in9</div><div class="author-info__description text-center">人间值得，未来可期</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Dar1in9s">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">68</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">13</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://gryffinbit.top">Gryffinbit</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Dar1in9's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">内网渗透—基础知识</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-03-10</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">3.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 9 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>“内网渗透”这一整块的学习算是《内网安全攻防——渗透测试实战指南》的学习笔记。</p>
+<p>第一部分先来学习一些基础的内网知识。</p>
+<span id="more"></span>
+
+
+
+<h2 id="工作组和域"><a href="#工作组和域" class="headerlink" title="工作组和域"></a>工作组和域</h2><p><strong>工作组</strong>：将不同的计算机按功能或部门分成不同的组，便于访问。</p>
+<blockquote>
+<p>工作组像一个可以自由进出和退出的社团，方便同组的计算机相互访问。工作组没有集中管理的作用，工作组里所有的计算机都是对等的。</p>
+</blockquote>
+<p><strong>域（Domain）</strong>：是一个有安全边界的计算机集合（再两个域中，一个域中的用户无法访问另一个域中的资源）。</p>
+<blockquote>
+<p>相比工作组来说，域的安全管理机制更加严格，用户想要访问域内的资源，必须以合法的身份登录域，而用户对域内的资源拥有什么样的权限，还取决于用户在域内的身份。</p>
+</blockquote>
+<p><strong>域控制器（Domain Controller，DC）</strong>：是域中的一台类似管理服务器的计算机。域控制器负责所有连入的计算机和用户的验证工作。域内的计算机如果想要互相访问，都要经过域控制器的审核。</p>
+<blockquote>
+<p>域控制器中存在由域账户、密码、属于这个域的计算机等信息构成的数据库。当计算机连接到域时，域控制器首先要鉴别这台计算机是否属于这个域，以及用户使用的账户密码是否匹配等。</p>
+</blockquote>
+<p>域中一般由如下几个环境：</p>
+<p><strong>单域：</strong>一个域内，一般至少要有两台与服务器，一台作为DC，另一台作为备份DC。</p>
+<p><strong>父域和子域：</strong>出于管理及其他需求，需要在网络中划分多个域。第一个称为父域，各分部的域称为该域的子域。</p>
+<p><strong>域树：</strong>是多个域通过建立信任关系组成的集合。</p>
+<blockquote>
+<p>一个域管理员只能管理本域，不能访问或管理其他域。如果两个域之间需要互相访问，则需要建立信任关系。信任关系是连接不同域的桥梁。</p>
+</blockquote>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/20220311093723.png"></p>
+<p><strong>域森林：</strong>是指多个域树通过建立信任关系组成的集合。</p>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/20220311094058.png"></p>
+<p><strong>域名服务器（DNS）：</strong>是指用与实现域名和与之对应的ip地址转换的服务器。</p>
+<blockquote>
+<p>实际上，因为域中的计算机是使用DNS来定位域控制器、服务器和其他计算机的，所以域的名字就是DNS域的名字。</p>
+<p>在内网渗透中，大都是通过寻找DNS服务器来确定域控制器的位置的（DNS服务器和域控制器通常配置在同一台服务器上）</p>
+</blockquote>
+<h2 id="活动目录"><a href="#活动目录" class="headerlink" title="活动目录"></a>活动目录</h2><p>活动目录（Active Directory，AD）是指域环境中提供目录服务的组件。</p>
+<p>目录用于存储有关网络对象（如用户、组、共享资源等）的信息。目录服务是指帮助用户快速准确的从目录中找到其所需要的信息的服务。活动目录实现了目录服务。</p>
+<p>活动目录的逻辑结构包括组织单元、域、域树、域森林等。域树内的所有域共享一个活动目录，这个活动目录内的数据分散存储在各个域中，且每个域只存储该域内的数据。</p>
+<p>活动目录主要提供的功能：</p>
+<ul>
+<li>账号集中管理：所有账号均存储在服务器中，以便执行命令和重置密码</li>
+<li>软件集中管理：同一推送软件、安装网络打印机等。</li>
+<li>环境集中管理：统一客户端桌面、TCP&#x2F;IP协议等设置</li>
+<li>增强安全性：统一部署杀毒软件、统一指定安全策略等</li>
+<li>更可靠、更短的宕机时间</li>
+</ul>
+<p><strong>域控制器和活动目录的区别：</strong></p>
+<p>将网络中的例如计算机、用户、用户组、打印机等分类的放置在一个大仓库中，并将检索信息整理好，一边查找管理和使用。这个拥有层次结构的数据库，就是活动目录数据库（AD库）。</p>
+<p>如果一个内网中的一台计算机安装了AD，它就变成了DC。</p>
+<h2 id="安全域的划分"><a href="#安全域的划分" class="headerlink" title="安全域的划分"></a>安全域的划分</h2><p>安全域的划分十将一组安全等级相同的计算机划入同一个网段。这个网段内的计算机拥有相同的网络边界，并在网络边界上部署防火墙来实现对其他安全域的网络访问控制，从而实现域内网络进出的控制。</p>
+<p>一个典型的中小型内网的安全域划分如下，一个虚线框表示一个安全域（一般分为DMZ和内网），通过硬件防火墙的不同端口实现隔离。</p>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/20220311100613.png"></p>
+<p><strong>DMZ称为隔离区</strong>，是为了解决安装防火墙后外部网络不能访问内部网络服务器的问题而设立的一个非安全系统与安全系统之间的缓冲区。DMZ位于企业内部网络和外部网络之间。可以在DMZ中放置一些必须公开的服务设施，例如web服务器等。DMZ是对外提供服务的区域，因此可以从外部访问。</p>
+<p>在配置一个拥有DMZ的网络时，通常需要定义以下访问控制策略：</p>
+<ul>
+<li>内网可以访问外网：内网用于需要自由地访问外网。在这一策略中，防火墙需要执行NAT。</li>
+<li>内网可以访问DMZ：此策略可以使内网用户可以使用或管理DMZ中的服务器。</li>
+<li>外网不能访问内网：这是防火墙的基本策略。</li>
+<li>外网可以访问DMZ：因为DMZ中的服务器需要为外界提供服务。同时，需要由防火墙来完成对外地址到服务器实际地址的转换。</li>
+<li>DMZ不能访问内网：如果不执行此策略，当攻击者攻陷DMZ时，内网将无法受到保护。</li>
+<li>DMZ不能访问外网。</li>
+</ul>
+<p>内网又可以分为办公区和核心区：</p>
+<ul>
+<li>办公区：公司员工日产的工作区，一般会安装防病毒软件。办公区一般能够访问DMZ。</li>
+<li>核心区：存储企业最重要的数据、文档等信息资产，通过日志记录、安全审计等安全措施进行严密的保护，往往只能有很少的主机能够访问。一般来说，能够直接访问核心区的只有运维人员或IT部门的主管（进行横向移动时，优先查找这些主机）</li>
+</ul>
+<h2 id="域中计算机的分类"><a href="#域中计算机的分类" class="headerlink" title="域中计算机的分类"></a>域中计算机的分类</h2><p>在域结构中，计算机的身份是不平等的，有域控制器、成员服务器、客户机、独立服务器四种类型。</p>
+<p><strong>域控制器：</strong>用于管理所有网络访问。包括登录服务器、访问共享目录和资源。域控制器中存放了域内所有账户的和策略信息，包括安全策略、用户身份验证信息和账户信息。在网络中，可以由多台计算机配置为域控制器，分担用户登录、访问等操作。</p>
+<p><strong>成员服务器：</strong>是指安装了服务器操作系统并加入了域、但没有安装活动目录的计算机，主要任务是提供网络资源。例如Web服务器、邮件服务器等。</p>
+<p><strong>客户机：</strong>域中的计算机可以是安装了其他操作系统的计算机，用户利用这些计算机和域中的账号就可以登录域，访问网络中的各种资源。</p>
+<p><strong>独立服务器：</strong>独立服务器和域没有关系，这类服务器既不加入域、也不安装活动目录。独立服务器可以创建工作组、与网络中的其他计算机共享资源，但不能使用活动目录提供的服务。</p>
+<h2 id="域内权限解读"><a href="#域内权限解读" class="headerlink" title="域内权限解读"></a>域内权限解读</h2><p>组（group）是用户账户的集合。通过向一组用户分配权限，就可以不必向每个用户分别分配权限。例如，管理员不必为单个用户设置独特的权限，只需要将用户加入相应的安全组中。然后配置安全组的权限即可。</p>
+<p><strong>域本地组：</strong>多域用户访问单域资源，可以从任何域添加用户账号，通用组和全局组，但智能在其所在域内指派权限。域本地组不能嵌套在其他组中。域本地组主要用于授予本域内资源的访问权限。</p>
+<p><strong>全局组：</strong>单域用户访问多域资源(必须是同一个域中的用户)，只能在创建该全局组的域中添加用户和全局组。可以在域森林的任何域内指派权限。全局组可以嵌套在其他组中。全局组和域本地组的关系，与域用户账号和本地账号的关系相似。域用户账号可以在全局使用，即在本域和其他关系的其他域中都可以使用，而本地账号只能在本机中使用。</p>
+<p>例如，将用户张三(域账号为Z3）添加到域本地组Administrators 中，并不能使Z3对非 DC的域成员计算机拥有任何特权，但若将Z3添加到全局组Domain Admins中，用户张三就成为域管理员了(可以在全局使用，对域成员计算机拥有特权)。</p>
+<p><strong>通用组：</strong>通用组的成员来自域森林中任何域的用户账号、全局组和其他通用组，可以在该域森林的任何域中指派权限，可以嵌套在其他组中，非常适合在域森林内的跨域访问中使用。不过，通用组的成员不是保存在各自的域控制器中的，而是保存在全局编录(GC)中的，任何变化都会导致全林复制。</p>
+<p>可以这样简单地记忆：</p>
+<ul>
+<li>域本地组来自全林，作用于本域；</li>
+<li>全局组来自本域，作用于全林；</li>
+<li>通用组来自全林，作用于全林。</li>
+</ul>
+<p><strong>几个重要的域本地组权限：</strong></p>
+<ul>
+<li>管理员组（Administrators)：可以不受限制的存储计算机&#x2F;域的资源。是域森林中强大的服务管理组。</li>
+<li>远程登录组（Remote Desktop Users）：具有远程登录权限</li>
+<li>打印机操作源组（Print Operators）：可以管理网络打印机</li>
+<li>账号操作员组（Account Operators）：可以创建和管理该域中的用户和组并为其设置权限，也可在本地登录域控制器。但是不能更改属于Administrators或 Domain Admins组的账户，也不能修改这些组。在默认情况下，该组中没有成员。</li>
+<li>服务器操作员组（Server Operators）：可以管理域服务器，其权限包括建立&#x2F;管理&#x2F;删除任意服务器的共享目录、管理网络打印机、备份任何服务器的文件、格式化服务器硬盘、锁定服务器、变更服务器的系统时间、关闭域控制器等。在默认情况下，该组中没有成员。</li>
+<li>备份操作员组（Backup Operators） ：可以在域控制器中执行备份和还原操作，并可以在本地登录和关闭域控制器。在默认情况下，该组中没有成员。</li>
+</ul>
+<p><strong>几个重要的全局组、通用组权限：</strong></p>
+<ul>
+<li>域管理员组(Domain Admins)：在所有加入域的服务器（工作站)、域控制器和活动目录中均默认拥有完整的管理员权限。因为该组会被添加到自己所在域的Administrators组中，因此可以继承Administrators组的所有权限。同时，该组默认会被添加到每台域成员计算机的本地Administrators组中，这样，Domain Admins组就获得了域中所有计算机的所有权。如果希望某用户成为域系统管理员，建议将该用户添加到Domain Admins组中，而不要直接将该用户添加到Administrators组中。</li>
+<li>企业系统管理员组(Enterprise Admins )：是域森林根域中的一个组。该组在域森林中的每个域内都是Administrators组的成员，因此对所有域控制器都有完全访问权。</li>
+<li>架构管理员组 (Schema Admins)：是域森林根域中的一个组，可以修改活动目录和域森林的模式。该组是为活动目录和域控制器提供完整权限的域用户组，因此，该组成员的资格是非常重要的。</li>
+<li>域用户组( Domain Users)：是所有的域成员。在默认情况下，任何由我们建立的用户账号都属于Domain Users 组，而任何由我们建立的计算机账号都属于Domain Computers 组。因此，如果想让所有的账号都获得某种资源存取权限，可以将该权限指定给域用户组，或者让域用户组属于具有该权限的组。域用户组默认是内置域Users 组的成员。</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Dar1in9</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://dar1in9s.github.io/2022/03/10/内网渗透—基础知识/">http://dar1in9s.github.io/2022/03/10/内网渗透—基础知识/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://Dar1in9s.github.io">Dar1in9's Blog</a>！</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/03/10/linux%20cve%E6%8F%90%E6%9D%83/"><span>linux 提权归纳</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2022 By Dar1in9</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
