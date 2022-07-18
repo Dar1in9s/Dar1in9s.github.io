@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="php常利用的函数"><meta name="keywords" content=""><meta name="author" content="Dar1in9"><meta name="copyright" content="Dar1in9"><title>php常利用的函数 | Dar1in9's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"MY1GAADR9W","apiKey":"5032629da4e94f659d98a4052bc1c5cd","indexName":"blog","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8Cphp%E4%BB%A3%E7%A0%81%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">可以执行php代码的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E4%B8%AD%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">php中可以执行系统命令的函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E4%B8%AD%E5%92%8C%E7%9B%AE%E5%BD%95%E4%B8%8E%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">php中和目录与文件相关的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">读文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E7%9B%AE%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">列目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-number">3.3.</span> <span class="toc-text">获取文件信息</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/kakashi-cat.jpg"></div><div class="author-info__name text-center">Dar1in9</div><div class="author-info__description text-center">人间值得，未来可期</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Dar1in9s">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">66</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://gryffinbit.top">Gryffinbit</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Dar1in9's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">php常利用的函数</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-03-04</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/php/">php</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><span>阅读时长: 5 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>这里总结了一些攻击php网站常用的函数</p>
+<span id="more"></span>
+
+
+
+<h2 id="可以执行php代码的函数"><a href="#可以执行php代码的函数" class="headerlink" title="可以执行php代码的函数"></a>可以执行php代码的函数</h2><p><strong>eval和assert</strong></p>
+<p>eval其实是php中的语言结构，不是函数。assert在php7之后也成为了语言结构。</p>
+<p><strong>preg_replace</strong></p>
+<p><code>preg_replace($pattern,replacement,subject)</code></p>
+<ul>
+<li><p>执行一个正则表达式的搜索和替换，搜索 subject 中匹配 pattern 的部分， 以 replacement 进行替换。</p>
+</li>
+<li><p>当pattern使用了<code>\e</code>修饰符时，会将replacement当做php代码执行</p>
+</li>
+<li><p>php7以后，不再支持\e修饰符</p>
+</li>
+</ul>
+<p><strong>create_function(args, code)</strong>  </p>
+<p>在php中，函数create_function主要用来创建匿名函数，php8中被移除</p>
+<p>其实现步骤：</p>
+<ol>
+<li>获取参数，函数体</li>
+<li>拼凑一个<code>function __lambda_func(参数) &#123;函数体&#125;</code>的字符串</li>
+<li>使用eval函数执行它</li>
+<li>通过<code>__lambda_func</code>在函数表中找到eval后得到的函数体，找不到就出错</li>
+<li>定义一个函数名<code>&quot;\000_lambda_&quot; . count(anonymous_functions)++</code></li>
+<li>用新定义的函数名替换<code>__lambda_func</code></li>
+<li>返回新的函数名</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">create_function</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;args&#x27;</span>], <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>])</span><br><span class="line">==&gt; <span class="keyword">eval</span>(<span class="string">&#x27;function __lambda_func(&#x27;</span>.<span class="variable">$_GET</span>[<span class="string">&#x27;args&#x27;</span>].<span class="string">&#x27;)&#123;&#x27;</span>.<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>].<span class="string">&#x27;&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 若args可控，args=)&#123;&#125;phpinfo();/*</span></span><br><span class="line"><span class="comment">// 若code可控，code=&#125;phpinfo();/*</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>call_user_func</strong></p>
+<p><code>call_user_func(callback, parameter)</code></p>
+<ul>
+<li><p>把第一个参数作为回调函数调用，返回值为回调函数的返回值</p>
+</li>
+<li><p>第一个参数callback是被调用的回调函数，其余参数是回调函数的参数</p>
+</li>
+<li><p>相当于  <code>$callback($parameter)</code></p>
+</li>
+</ul>
+<p>如果第一个参数是一个数组，则此call_user_func将用来调用一个类里面的方法：</p>
+<p><code>call_user_func(array($classname, &#39;say_hello&#39;));      //将会调用$classname的say_hello方法</code></p>
+<p>例如：<code>call_user_func(&quot;var_dump&quot;, &quot;hello&quot;);</code></p>
+<p><strong>call_user_func_array</strong></p>
+<p><code>call_user_func_array(callback,callback,callback,callback,param_arr)</code></p>
+<ul>
+<li><p>把第一个参数作为回调函数调用</p>
+</li>
+<li><p>第二个参数是一个数组，表示参数列表，按照顺序依次会传递给要调用的函数。</p>
+</li>
+<li><p>传入的数组应为索引数组</p>
+</li>
+<li><p>返回值为回调函数的结果，如果出错就返回false</p>
+</li>
+</ul>
+<p>例如：<code>call_user_func_array(&quot;var_dump&quot;, [&quot;hello&quot;]);</code></p>
+<p><strong>array_map</strong></p>
+<p><code>array_map(callback,array)</code></p>
+<ul>
+<li><p>为数组的每个元素应用回调函数</p>
+</li>
+<li><p>第二个参数必须是数组</p>
+</li>
+<li><p>返回值为数组，是为每个元素应用callback函数的结果的数组</p>
+</li>
+</ul>
+<p>例如：<code>array_map(&quot;var_dump&quot;, [&quot;hello&quot;]);</code></p>
+<p><strong>array_filter</strong></p>
+<p><code>array_filter($array,$callback)</code></p>
+<ul>
+<li><p>用回调函数过滤数组中的单元</p>
+</li>
+<li><p>依次将array中的每个值传递到callback函数，如果callback函数返回true，则array数组的当前值会被包含在返回的结果数组中</p>
+</li>
+<li><p>返回值为过滤后的数组</p>
+</li>
+</ul>
+<p>例如：<code>array_filter([&quot;hello&quot;], &quot;var_dump&quot;);</code></p>
+<p><strong>ob_start</strong></p>
+<p><code>ob_start($output_callback)</code></p>
+<ul>
+<li><p>此函数将打开输出缓冲区。当输出缓冲区激活后，脚本将不会输出内容(除了http表头外)</p>
+</li>
+<li><p><code>$output_callback</code>指定输出的回调函数，此时输出的内容将会被当做回调函数的参数</p>
+</li>
+<li><p>使用<code>ob_end_flush()</code>函数将清除缓冲区的内容</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">ob_start</span>(<span class="string">&quot;system&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;ls&quot;</span>;</span><br><span class="line"><span class="title function_ invoke__">ob_end_flush</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无回显，但能执行</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>usort</strong></p>
+<p><code>usort($array, $call_back)   </code></p>
+<ul>
+<li>用用户自定义的比较函数对一个数组中的值进行排序。 </li>
+<li>如果要排序的数组需要用一种不寻常的标准进行排序，那么应该使用此函数。即：对array调用$all_back</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span> = [<span class="string">&quot;1&quot;</span>,<span class="number">2</span>];</span><br><span class="line"><span class="title function_ invoke__">usort</span>(<span class="variable">$a</span>, <span class="string">&quot;var_dump&quot;</span>);</span><br><span class="line"><span class="comment">// string(1) &quot;1&quot;</span></span><br><span class="line"><span class="comment">// int(2)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ?1[]=test&amp;1[]=phpinfo();&amp;2=assert </span></span><br><span class="line"><span class="title function_ invoke__">usort</span>(...<span class="variable">$_GET</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>register_shutdown_function</strong></p>
+<p><code>register_shutdown_function(callback[,param])</code></p>
+<ul>
+<li>注册一个回调函数，其会在脚本执行结束时调用（或调用exit()后）</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">register_shutdown_function</span>(<span class="string">&quot;var_dump&quot;</span>,<span class="string">&quot;1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>register_tick_function</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span>(ticks=<span class="number">1</span>); </span><br><span class="line"><span class="title function_ invoke__">register_tick_function</span>(<span class="string">&#x27;var_dump&#x27;</span>, <span class="string">&#x27;1&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>filter_var</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">filter_var</span>(<span class="string">&#x27;1&#x27;</span>, FILTER_CALLBACK, <span class="keyword">array</span>(<span class="string">&#x27;options&#x27;</span> =&gt; <span class="string">&#x27;var_dump&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>filter_var_array</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">filter_var_array</span>(<span class="keyword">array</span>(<span class="string">&#x27;test&#x27;</span> =&gt; <span class="string">&quot;1&quot;</span>), <span class="keyword">array</span>(<span class="string">&#x27;test&#x27;</span> =&gt; <span class="keyword">array</span>(<span class="string">&#x27;filter&#x27;</span> =&gt; FILTER_CALLBACK, <span class="string">&#x27;options&#x27;</span> =&gt; <span class="string">&#x27;var_dump&#x27;</span>)));</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="php中可以执行系统命令的函数"><a href="#php中可以执行系统命令的函数" class="headerlink" title="php中可以执行系统命令的函数"></a>php中可以执行系统命令的函数</h2><p><code>system($cmd)</code>  有回显</p>
+<ul>
+<li><p>执行系统命令，并输出结果</p>
+</li>
+<li><p>成功则返回命令输出的最后一行，失败则返回false</p>
+</li>
+</ul>
+<p><code>passthru($cmd)</code>  有回显</p>
+<ul>
+<li><p>执行系统命令，并显示原始输出</p>
+</li>
+<li><p>无返回值</p>
+</li>
+</ul>
+<p><code>shell_exec($cmd)</code> 无回显</p>
+<ul>
+<li><p>执行命令，并将完成的输出以字符串的方式返回</p>
+</li>
+<li><p>如果执行发生错误，则返回null</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">shell_exec</span>(<span class="string">&quot;whoami&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>exec(cmd,output)</code>  无回显</p>
+<ul>
+<li><p>执行cmd命令。如果提供了output参数，那么命令执行的结果将会输出到output参数中</p>
+</li>
+<li><p>返回命令执行的最后一行的内容</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">exec</span>(<span class="string">&quot;whoami&quot;</span>, <span class="variable">$a</span>);</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="variable">$a</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>popen($cmd)</code>    无回显</p>
+<ul>
+<li><p>打开一个指向进程的管道，该进程由cmd命令执行产生</p>
+</li>
+<li><p>返回一个和fopen相同的文件指针</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">fread</span>(<span class="title function_ invoke__">popen</span>(<span class="string">&quot;whoami&quot;</span>, <span class="string">&quot;r&quot;</span>), <span class="number">9999</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>proc_open($cmd)</code>  无回显</p>
+<ul>
+<li>执行一个命令，并且打开用来输入&#x2F;输出的文件指针</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$descriptorspec</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="number">0</span> =&gt; <span class="keyword">array</span>(<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;r&quot;</span>),</span><br><span class="line">    <span class="number">1</span> =&gt; <span class="keyword">array</span>(<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;w&quot;</span>),</span><br><span class="line">    <span class="number">2</span> =&gt; <span class="keyword">array</span>(<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;w&quot;</span>) </span><br><span class="line">);</span><br><span class="line"><span class="variable">$process</span> = <span class="title function_ invoke__">proc_open</span>(<span class="string">&quot;whoami&quot;</span>, <span class="variable">$descriptorspec</span>, <span class="variable">$pipes</span>, <span class="literal">null</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">is_resource</span>(<span class="variable">$process</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">stream_get_contents</span>(<span class="variable">$pipes</span>[<span class="number">1</span>]);</span><br><span class="line">    <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>pcntl_exec(path, args)</code>无回显</p>
+<ul>
+<li><p>在当前进程空间执行指定程序</p>
+</li>
+<li><p><code>$path</code>是可执行文件路径</p>
+</li>
+<li><p>发生错误时返回false，没有错误时无返回内容</p>
+</li>
+</ul>
+<h2 id="php中和目录与文件相关的函数"><a href="#php中和目录与文件相关的函数" class="headerlink" title="php中和目录与文件相关的函数"></a>php中和目录与文件相关的函数</h2><h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><p><code>readfile($filename) </code>           有回显</p>
+<ul>
+<li>输出文件内容，返回从文件中读入的字节数，如果出错，返回false</li>
+</ul>
+<p><code>highlight_file($filename)</code>              有回显</p>
+<ul>
+<li>语法高亮一个文件</li>
+</ul>
+<p><code>fpassthru(fopen($filename, &#39;r&#39;));</code>    有回显</p>
+<p><code>show_source($filename)</code></p>
+<p><code>file_get_contents($filename)  </code></p>
+<ul>
+<li>将整个文件读入一个字符串，如果失败，返回false</li>
+</ul>
+<p><code>file($filename) </code></p>
+<ul>
+<li>把整个文件读入一个数组中,返回那个数组，如果出错，返回false</li>
+</ul>
+<h3 id="列目录"><a href="#列目录" class="headerlink" title="列目录"></a>列目录</h3><p><code>scandir($path)</code></p>
+<ul>
+<li>列出指定路径中的文件和目录,如果失败返回false</li>
+</ul>
+<p><code>glob($pattern) </code></p>
+<ul>
+<li>寻找与pattern匹配的文件路径，将其结果返回为一个数组，如果出错返回false</li>
+</ul>
+<p><code>readdir($dir_handle)</code></p>
+<ul>
+<li>从目录句柄中读取一条条目</li>
+<li><code>readdir(opendir($path))</code></li>
+</ul>
+<h3 id="获取文件信息"><a href="#获取文件信息" class="headerlink" title="获取文件信息"></a>获取文件信息</h3><p><code>filetype($filename)</code>        返回文件的类型，如果出错，返回false</p>
+<p><code>filesize($filename) </code>       返回文件大小的字节数，如果出错，返回false</p>
+<p><code>realpath($filemame)</code>        返回文件的绝对路径，失败返回false</p>
+<p><code>getcwd()</code>                   返回当前文件目录路径</p>
+<p><code>dirname($file)</code>             返回文件的路径部分</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Dar1in9</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://dar1in9s.github.io/2022/03/04/php/php常利用的函数/">http://dar1in9s.github.io/2022/03/04/php/php常利用的函数/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://Dar1in9s.github.io">Dar1in9's Blog</a>！</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/03/05/%E6%B8%97%E9%80%8F/Linux%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"><i class="fa fa-chevron-left">  </i><span>linux主机信息收集</span></a></div><div class="next-post pull-right"><a href="/2022/03/04/web%E5%AE%89%E5%85%A8/sql%E6%B3%A8%E5%85%A5bypass/"><span>sql注入bypass</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2022 By Dar1in9</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
