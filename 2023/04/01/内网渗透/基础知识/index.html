@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="内网渗透之基础知识"><meta name="keywords" content=""><meta name="author" content="Dar1in9"><meta name="copyright" content="Dar1in9"><title>内网渗透之基础知识 | Dar1in9's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"MY1GAADR9W","apiKey":"5032629da4e94f659d98a4052bc1c5cd","indexName":"blog","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">内网工作环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%BB%84%E5%92%8C%E5%9F%9F"><span class="toc-number">1.1.</span> <span class="toc-text">工作组和域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">活动目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E6%9C%8D%E5%8A%A1%E4%B8%8ELDAP"><span class="toc-number">1.2.1.</span> <span class="toc-text">目录服务与LDAP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95%E5%88%86%E5%8C%BA"><span class="toc-number">1.2.2.</span> <span class="toc-text">活动目录分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.2.3.</span> <span class="toc-text">活动目录的查询</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E7%94%A8%E6%88%B7%E5%9F%9F%E6%9C%BA%E5%99%A8%E7%94%A8%E6%88%B7"><span class="toc-number">1.3.</span> <span class="toc-text">域用户域机器用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E7%94%A8%E6%88%B7%E7%BB%84%E7%9A%84%E5%88%86%E7%B1%BB%E5%92%8C%E6%9D%83%E9%99%90"><span class="toc-number">1.4.</span> <span class="toc-text">域用户组的分类和权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-number">1.5.</span> <span class="toc-text">访问控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">Windows访问控制模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8"><span class="toc-number">1.5.2.</span> <span class="toc-text">访问控制列表</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/kakashi-cat.jpg"></div><div class="author-info__name text-center">Dar1in9</div><div class="author-info__description text-center">人间值得，未来可期</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Dar1in9s">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">75</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">14</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://gryffinbit.top">Gryffinbit</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Dar1in9's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">内网渗透之基础知识</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-04-01</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">4.2k</span><span class="post-meta__separator">|</span><span>阅读时长: 13 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>这是《内网渗透体系建设》学习笔记，第一篇：基础知识</p>
+<span id="more"></span>
+
+<h2 id="内网工作环境"><a href="#内网工作环境" class="headerlink" title="内网工作环境"></a>内网工作环境</h2><h3 id="工作组和域"><a href="#工作组和域" class="headerlink" title="工作组和域"></a>工作组和域</h3><p><strong>工作组</strong>（Work Group）是计算机网络的一个概念，也是最常见和最普通的资源管理模式，就是将不同的计算机按照功能或部门分别置于不同的组。</p>
+<p><strong>域</strong>（Domain）是一种比工作组更高级的计算机资源管理模式，既可以用于计算机数量较少的小规模网络环境，也可以用于计算机数量众多的大型网络环境。</p>
+<p>在域环境中，所有用户账户、用户组、计算机、打印机和其他安全主体都在一个或多个域控制器的中央数据库中注册。当域用户需要想访问域中的资源时，必须通过域控制器集中进行身份验证。而通过身份验证的域用户对域中的资源拥有什么样的访问权限取决于域用户在域中的身份。</p>
+<p><strong>域控制器</strong>（Domain Controller，DC）时域环境核心的服务器计算机，用于在域中相应安全身份认证请求，负责允许或拒绝发出请求的主机访问域内资源，以及对用户进行身份验证，存储用户账户信息并执行域的安全策略等。一个域环境可以拥有一台或多台域控制器。</p>
+<h3 id="活动目录"><a href="#活动目录" class="headerlink" title="活动目录"></a>活动目录</h3><p><strong>活动目录</strong>（Active Directory，AD）是指安装在域控制器上，为整个域环境提供集中式目录管理服务的组件。活动目录存储了有关域环境中各种对象的信息，如域、用户、用户组、计算机、组织单位、共享资源、安全策略等。</p>
+<p>活动目录提供了计算机集中管理、用户集中管理、资源集中管理、环境集中管理、应用集中管理等功能。</p>
+<p>目录数据存储在域控制器的Ntds.dit二进制文件中，文件路径是<code>%SystemRoot%\ntds\ntds.dit</code>。Ntds.dit文件使用存储在系统SYSTEM文件的密钥对这些哈希值进行加密。在非域环境，即工作组环境中，用户的登陆凭据等信息存储在本地SAM文件中。</p>
+<h4 id="目录服务与LDAP"><a href="#目录服务与LDAP" class="headerlink" title="目录服务与LDAP"></a>目录服务与LDAP</h4><p>活动目录是一种目录服务数据库，区别于关系型数据库，目录数据库实现的是目录服务，是一种可以帮助用户快速、准确的从目录中找到所需要的信息的服务。目录数据库将所有数据组织成一个有层次结构的树状结构，其中的每一个节点是一个对象，有关这个对象的所有信息作为这个对象的属性被存储。用户可以根据对象名称去查找这个对象的有关信息。</p>
+<p><strong>LDAP</strong>（Lightweight Directory Access Protocol，轻量目录访问协议）是用来访问目录服务数据库的一个协议。活动目录就是利用LDAP名称路径来描述对象在活动目录中的位置的。</p>
+<p>一些基本概念：</p>
+<ol>
+<li>目录树：在一个目录数据库中，整个目录中的信息集可以表示为一个目录信息树，书中的每一个节点是一个条目。</li>
+<li>条目：目录数据库中的每个条目就是一条记录。每个条目有自己唯一绝对可辨识名称（DN）。</li>
+<li>DN（Distinguish Name，绝对可辨识名称）：指向一个LDAP对象的完整路径。DN由对象本体开始，向上延申到域顶级的DNS命名空间。CN代表通用名（Common Name），OU代表组织单位（Organizational Unit），DC代表域组件（Domain Component）。</li>
+<li>RDN（Relative Distinguish Name，相对可辨识名称）：用于指向一个LDAP对象的相对路径。</li>
+<li>属性：用于描述数据库中每个条目的具体信息。</li>
+</ol>
+<h4 id="活动目录分区"><a href="#活动目录分区" class="headerlink" title="活动目录分区"></a>活动目录分区</h4><p>活动目录可以支持数以千万计的对象。为了扩大这些对象，微软将活动目录数据库划分为多个分区，以方便进行复制和管理。每个逻辑分区在域林中的域控制器之间分别复制、更改。这些分区被称为上下文命名（Context Name）。<br>活动目录预定义了域分区、配置分区和架构分区三个分区。</p>
+<p><strong>域分区</strong>（Domain NC）用于存储与该域有关的对象信息，这些信息是特定于该域的，如该域中的计算机、用户、组、组织单位等信息。在域林中，每个域的域控制器各自拥有一份属于自己的域分区，只会被复制到本域的所有域控制器中。</p>
+<p><strong>配置分区</strong>（Configuration NC）存储整个域林的主要配置信息，包括有关站点、服务、分区和整个活动目录结构的信息。整个域林共享一份相同的配置分区，会被复制到域林中所有域的控制器上。</p>
+<p><strong>架构分区</strong>（Schema NC）存储整个域林的架构信息，包括活动目录中的所有类，对象和属性的定义数据。整个域林共享一份相同的架构分区，会被复制到域林中所有域的控制器中。</p>
+<h4 id="活动目录的查询"><a href="#活动目录的查询" class="headerlink" title="活动目录的查询"></a>活动目录的查询</h4><p><strong>lDAP的按位查询</strong></p>
+<p>在LDAP中，有些属性是位属性，它们由一个个位标志构成，不同的位可由不同的数值表示，属性的值为各位值的总和。此时不能再对某属性进行查询，而需要对属性的标志位进行查询。这就是LDAP的按位查询。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;属性名称&gt;:&lt;BitFilterRule-ID&gt;:=&lt;十进制的位值&gt;</span><br><span class="line"><span class="meta"># </span><span class="language-bash">其中&lt;BitFilterRule-ID&gt;指的就是位查询规则对应的ID</span></span><br></pre></td></tr></table></figure>
+
+<p>AdFind是一款C++语言编写的域中信息查询的工具，可以在域中任何一台主机使用。其语法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Adfind.exe [switches] [-b basedn] [-f filter] [attr list]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-b 指定一个BaseDN作为查询的根</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-f 为LDAP过滤条件</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">attr list为需要显示的属性</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">查询hack.com域中所有computer对象，并过滤对象的name和operatingSystem属性</span></span><br><span class="line">Adfind.exe -b dc=hack, dc=com -f &quot;objectClass=computer&quot; name operatingSystem</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="域用户域机器用户"><a href="#域用户域机器用户" class="headerlink" title="域用户域机器用户"></a>域用户域机器用户</h3><p><strong>域用户</strong>，就是域环境中的用户，在域控制器中被创建，并且其所有信息都保存在活动目录中。域用户账户位于域的全局组Domain Users中，而计算机本地账户位于本地User组中。当计算机加入域时，全局组Domain Users会被添加到计算机本地的User组中。因此域用户可以在域中的任何一台计算机上登录。<br>执行<code>net user /domain</code>可以查看域中的所有域用户。</p>
+<p><strong>机器用户</strong>其实是一种特殊的域用户。在域环境中，计算机上的本地用户SYSTEM对应域中的机器账户，在域中的用户名就是“机器名+$”。<br>执行<code>net group &quot;Domain Computers&quot; /domain</code>可以查看域中所有的机器用户。</p>
+<p>当获取到一台域中主机的控制权后，发现没有域中用户凭据，此时可以利用一些系统提权方法，将当前用户提升到SYSTEM，以机器账户权限进行域内的操作。</p>
+<h3 id="域用户组的分类和权限"><a href="#域用户组的分类和权限" class="headerlink" title="域用户组的分类和权限"></a>域用户组的分类和权限</h3><p>在域环境中，为了方便对用户权限进行管理，需要将具有相同权限的用户划分为一组，这样只要对这个用户组赋予了一定的权限，那么该组内的用户就获得了相同的权限。</p>
+<p><strong>组</strong>（Group）是用户账户的集合，按照用途可以分为通讯组和安全组。<br>通讯组就是一个通讯群组。比如将某个部门所有员工拉进同一个通讯组，当给这个通讯组发送消息时，组内所有成员都可以收到。<br>安全组是用户权限的集合。</p>
+<p>根据组的作用范围，安全组可以分为域本地组、通用组和全局组。<br><strong>域本地组</strong><br>域本地组（Domain Local Group），主要用于访问同一个域中的资源。除了本组的用户，域本地组还可以包含域林中的任何一个域和通用组、全局组的用户，但是无法包含其他域中的域本地组。域本地组只能访问本域中的资源，无法访问其他不同域中的资源。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">查询所有的域本地组</span></span><br><span class="line">Adfind.exe -b &quot;dc=hack, dc=com&quot; -bit -f &quot;(&amp;(objectClass=group)(groupType:AND:=4))&quot; cn -dn</span><br></pre></td></tr></table></figure>
+
+<p>常见的系统内置的域本地组机器权限：</p>
+<ul>
+<li>Administrators：管理员组。</li>
+<li>Print Operators：打印机操作员组，该组的成员可以管理网络中的打印机，还可以在本地登录和关闭域控制器</li>
+<li>Backup Operators：备份操作员组，该组的成员可以在域控制器中执行备份和还原操作，还可以在本地登录和关闭域控制器</li>
+<li>Remote Desktop Users：远程登录组，只有该组的成员才有远程登录服务的权限</li>
+<li>Account Operators：账号操作员组，该组的成员可以创建和管理域中用户和组，为其设置权限，也可以在本地登录域控制器</li>
+<li>Server Operators：服务器操作员组，该组的成员可以管理域服务器</li>
+</ul>
+<p><strong>通用组</strong><br>通用组（Universal Group）可以作用于域林的所有域，其成员可以包括域林中任何域的用户账户、全局组和其他通用组，但是无法包含域本地组。通用组可以在域林中的任何域中被指派访问权限，以便于访问所有域中的资源。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">查询所有通用组</span></span><br><span class="line">Adfind.exe -b dc=hack,dc=com -bit -f &quot;(&amp;(objectClass=group)(groupType:AND:=8))&quot; cn -dn</span><br></pre></td></tr></table></figure>
+
+<p>常见的系统内置通用组：</p>
+<ul>
+<li>Enterprise Admins：组织系统管理员组，该组是域林的根域中的一个组。该组的成员在域林的每个域中都是Administrators组的成员，因此对所有的域控制器都有完全的控制权</li>
+<li>Schema Admins：架构管理员组，该组是域林根域中的一个组。该组的成员可以修改活动目录，如在架构分区中新增类或属性。</li>
+</ul>
+<p><strong>全局组</strong><br>全局组（Global Group）可以作用于域林的所有域，是介于本地组和通用组的组。全局组只能包含本域的用户。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">查询所有的全局组</span></span><br><span class="line">Adfind.exe -b dc=hack, dc=com -bit -f &quot;(&amp;(ObjectClass=group)(groupType:AND:=2))&quot; cn -dn</span><br></pre></td></tr></table></figure>
+
+<p>常见的系统内置全局组：</p>
+<ul>
+<li>Domain Admins：域管理员组，该组的成员在所有加入域的服务器上拥有完整的管理员权限</li>
+<li>Domain Users：域用户组，该组的成员是所有的域用户。在默认情况下，任何新建的用户都是该组的成员</li>
+<li>Domain Computers：域成员主机组，该组的成员是域中所有的域成员主机，任何新建的计算机账户都是该组的成员</li>
+<li>Domain Controllers：域控制器组，该组的成员包含域中所有的控制器</li>
+<li>Domain Guests：域访客用户组</li>
+<li>Group Policy Creator Owners：新建组策略对象组，该组的成员可以修改域的组策略</li>
+</ul>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>访问控制是指Windows使用内置授权和访问控制技术，确定经过身份验证的用户是否具有访问资源的正确权限，以控制主体（Principal）操作（读取、写入、删除、更改）对象（Object）的行为是否具有合法权限。</p>
+<ul>
+<li>在Windows中，访问主体通常是指安全主体。安全主体是任何可通过操作系统进行身份认证的实体，如用户账户、计算机账户、在计算机活用户账户的安全上下文中运行的线程或进程，以及这些账户的安全组等。</li>
+<li>被访问的对象通常指安全对象。可能是文件、文件夹、打印机、注册表项、共享服务、活动目录域服务对象等。</li>
+<li>当经过身份验证的安全主体想访问安全对象时，windows会为安全主体创建一个访问令牌（Access Token），其中包含验证过程返回的SID和本地安全策略分配给用户的用户权限列表。</li>
+<li>当安全对象被创建时，windows会为其创建一个安全描述符（Security Descriptor）</li>
+</ul>
+<p>Windows的访问控制正是将<strong>安全主体的访问令牌中的信息</strong>与<strong>安全对象的安全描述符中的访问控制项</strong>进行比较做出访问决策的。</p>
+<h4 id="Windows访问控制模型"><a href="#Windows访问控制模型" class="headerlink" title="Windows访问控制模型"></a>Windows访问控制模型</h4><p>Windows访问控制模型主要由<strong>访问令牌</strong>（Access Token）和<strong>安全描述符</strong>（Security Descriptor）两部分构成，分别由访问者和被访问者持有。通过比较访问令牌和安全描述符的内容，Windows可以对访问者是否拥有访问资源对象的能力进行判定。</p>
+<p>访问令牌主要包含如下信息：</p>
+<ul>
+<li>标识用户账户的SID（Security ID，安全标识）</li>
+<li>标识用户所属的组的SID</li>
+<li>标识当前登录会话的SID</li>
+<li>用户或用户所处的用户组持有的特权列表</li>
+<li>标识对象所有者的SID</li>
+<li>标识对象所有者组的SID</li>
+<li>标识用户主安全组的SID</li>
+<li>用户创建安全对象而不指定安全描述符时系统使用的默认DACL（Discretionary Access Control List，自主访问控制列表）</li>
+<li>访问令牌的来源</li>
+<li>访问令牌的类型，主令牌还是模拟令牌</li>
+<li>限制SID的可选列表</li>
+<li>当前模拟等级</li>
+<li>其他信息</li>
+</ul>
+<h4 id="访问控制列表"><a href="#访问控制列表" class="headerlink" title="访问控制列表"></a>访问控制列表</h4><p>访问控制列表（ACL）时访问控制项（Acess Control Entry，ACE）的列表。访问控制列表中的每个访问控制项指定了一系列访问权限。</p>
+<p>DACL（自主访问控制列表）是安全对象的访问控制策略，其中定义了该安全对象的访问控制策略，用于指定允许或拒绝特定安全主体对该安全对象的访问。DACL是由一条条的访问控制项（ACE）条目构成的，每条ACE定义了哪些用户或组对该用户拥有怎样的访问权限。</p>
+<p>SACL（System Access Control List，系统访问控制列表）是安全主体对安全对象的访问行为的审计策略。SACL也由一条条的ACE条目构成，每条ACE定义了对哪些安全主体的哪些访问行为进行日志记录，如对指定用户的访问成功、失败行为进行审计记录日志。安全主体的访问行为满足这条ACE时就会被记录。</p>
+<p><strong>使用Icacls查看与修改访问控制列表</strong></p>
+<p>lcacls是一种命令行工具，使用icalcs命令可以查看或修改指定文件上的访问控制列表（ACL），并将存储的DACL应用于指定目录的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">查看指定文件的ACL</span></span><br><span class="line">icacls C:\Users\Dar1in9\Desktop\tmp\</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202301171744556.png"></p>
+<p>icacls可以查询到的权限说明：</p>
+<ul>
+<li>简单权限序列：N，无访问权限；F，完全访问权限；M，修改权限；RX，读取和执行权限；R，只读权限；W，只写权限；D，删除权限</li>
+<li>在”()”中以”,”分隔的特定权限列表：DE，删除；RC，读取控制；WDAC，写入DAC；WO，写入所有者；S，同步；AS，访问系统安全性；MA，允许的最大值；GR，一般性读取；GW，一般性写入；GE，一般性执行；GA，全为一般性；RD，读取数据&#x2F;列出目录；WD，写入数据&#x2F;添加文件；AD，附加数据&#x2F;添加子目录；REA，读取扩展属性；WEA，写入扩展属性；X，执行&#x2F;遍历；DC，删除子项；RA，读取属性；WA，写入属性</li>
+<li>继承权限可以优先于每种格式，但只应用于目录：OI，对象继承；CI，容器继承；IO，仅继承；NP，不传播继承；I，从父容器继承的权限</li>
+</ul>
+<p>常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">将指定目录及子目录的所有文件的ACL备份到AclFile.txt中。  /T 为递归遍历所有子目录</span></span><br><span class="line">icacls C:\Users\Dar1in9\Desktop\tmp\* /save AclFile.txt /T</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">将AclFile.txt内所有备份的文件ACL还原到指定目录及其子目录</span></span><br><span class="line">icacls C:\Users\Dar1in9\Desktop\tmp\ /restore AclFile.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">给用户Hacker添加指定文件或目录（及其子目录）的完全访问权限</span></span><br><span class="line">icacls C:\Users\Dar1in9\Desktop\tmp\ /grant Hacker:(OI)(CI)(F) /t</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">删除用户Hacker对指定文件夹或目录（及其子目录）的完全访问权限</span></span><br><span class="line">icacls C:\Users\Dar1in9\Desktop\tmp\ /remove /t</span><br></pre></td></tr></table></figure>
+
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Dar1in9</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://dar1in9s.github.io/2023/04/01/内网渗透/基础知识/">http://dar1in9s.github.io/2023/04/01/内网渗透/基础知识/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://Dar1in9s.github.io">Dar1in9's Blog</a>！</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2023/04/02/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"><i class="fa fa-chevron-left">  </i><span>内网渗透之信息收集</span></a></div><div class="next-post pull-right"><a href="/2022/09/16/Java/Java%E4%B8%AD%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"><span>Java中的命令执行的几个类</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2023 By Dar1in9</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
