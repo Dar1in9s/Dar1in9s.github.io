@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="卷积神经网络"><meta name="keywords" content=""><meta name="author" content="Dar1in9"><meta name="copyright" content="Dar1in9"><title>卷积神经网络 | Dar1in9's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"MY1GAADR9W","apiKey":"5032629da4e94f659d98a4052bc1c5cd","indexName":"blog","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.0.0'
+} </script><meta name="generator" content="Hexo 6.0.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.</span> <span class="toc-text">卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LENet"><span class="toc-number">1.1.</span> <span class="toc-text">LENet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlexNet"><span class="toc-number">1.2.</span> <span class="toc-text">AlexNet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VGGNet"><span class="toc-number">1.3.</span> <span class="toc-text">VGGNet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GoogLeNet"><span class="toc-number">1.4.</span> <span class="toc-text">GoogLeNet</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/kakashi-cat.jpg"></div><div class="author-info__name text-center">Dar1in9</div><div class="author-info__description text-center">人间值得，未来可期</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Dar1in9s">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">89</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">17</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">17</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="https://gryffinbit.top">Gryffinbit</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Dar1in9's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">卷积神经网络</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2024-01-12</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>卷积神经网络（CNN，Convolutional Neural Network）是一种专门用于处理具有网格拓扑数据（如图像、视频等）的深度学习模型，广泛应用于计算机视觉领域。与传统的全连接神经网络不同，CNN 通过卷积操作提取局部特征，能够有效减少参数数量，并提高模型在图像、语音等任务中的表现。</p>
+<span id="more"></span>
+
+
+<h2 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h2><p>卷积神经网络四大要件：</p>
+<ul>
+<li><strong>卷积层（Convolution Layer）</strong><br>  卷积神经网络的核心是卷积层，它通过使用卷积操作来提取图像中的特征。卷积操作有助于捕捉局部信息，通过滑动窗口的方式在输入数据上进行滤波操作，从而生成特征图。</li>
+<li><strong>非线性激励层（Non-Linear Layer)&#x2F;激活函数（Activation Function）</strong><br>  激活函数引入非线性性质，使得网络可以学习复杂的映射关系。常用的激活函数包括ReLU（Rectified Linear Unit）和其变体，它们在神经网络中广泛应用。</li>
+<li><strong>池化层（Pooling Layer）</strong><br>   池化层用于减小特征图的空间维度，同时保留最重要的信息。常见的池化操作包括最大池化和平均池化，它们分别选取池化窗口中的最大值或平均值作为输出，以降低计算复杂度和提高网络的鲁棒性。</li>
+<li><strong>输出层、全连接层（Fully-connected Layer)</strong><br>   全连接层用于将卷积和池化层提取的特征映射转换为最终的输出。在这一层中，每个神经元与前一层中的所有神经元连接，从而实现全局信息的整合。</li>
+</ul>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401151726446.png"></p>
+<p><strong>卷积层（Convolution Layer）</strong></p>
+<p>卷积的主要工作是<strong>通过卷积操作提取输入数据中的特征</strong>。这一操作是基于卷积核（也称为滤波器）的滑动窗口运算。</p>
+<p>具体来说，卷积层的工作包括以下几个步骤：</p>
+<p>1、卷积操作： 卷积核是一个小的窗口或矩阵，它通过在输入数据上滑动进行卷积操作。<strong>在每个位置，卷积核与输入数据的相应部分进行逐元素相乘，然后将所有乘积的结果相加，形成输出特征图的一个元素</strong>。</p>
+<p>2、特征映射： 卷积操作的结果生成了称为特征映射的输出。这些特征映射捕捉了输入数据中的<strong>局部特征</strong>，通过在不同位置应用卷积核，网络能够学习不同的特征，例如边缘、纹理等。</p>
+<p>3、权重共享： 卷积操作中使用的卷积核在整个输入数据上共享权重。这样的权重共享减少了需要学习的参数数量，使得网络更加高效。</p>
+<p>4、感受野： 感受野是指卷积层中每个输出单元对输入数据的局部区域的大小。随着网络深度的增加，感受野逐渐扩大，使网络能够捕捉更广泛的特征。</p>
+<p>通过卷积操作，卷积层能够有效地提取输入数据的局部特征，使得卷积神经网络在图像处理任务中表现出色，如图像分类、目标检测等。</p>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161044283.png"></p>
+<p>**卷积核（Convolutional Kernel)**：</p>
+<p>1、同输入数据进行计算的二维（一维、三维）算子<br>2、大小（size）由用户定义，深度由输入数据定义<br>3、卷积核“矩阵值”：卷积神经网络的参数<br>4、卷积核初始值随机生成，通过反向传播更新</p>
+<p>卷积核的关键参数：<br>卷积核大小：</p>
+<ul>
+<li>奇偶选择：一般奇数，满足对称</li>
+<li>大小选择：根据输入数据，根据图像特征</li>
+<li>厚度确认：与输入数据一致</li>
+<li>覆盖范围：根据输入数据，根据图像特征</li>
+</ul>
+<p>步长（stride）：对输入特征图的扫描间隔</p>
+<p>边界扩充（pad）：在卷积过程中，为了允许边界上的数据也能作为中心参与卷积运算，将边界假装延申。</p>
+<ul>
+<li>假设卷积核的宽度为2i+1，则添加pad的宽度为i</li>
+</ul>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161117340.png"></p>
+<p><strong>非线性激励层（Non-linear activation layer）：</strong></p>
+<p>引入非线性性质，使得网络可以学习复杂的映射关系。</p>
+<p>relu函数：$f(x) &#x3D; max(0,x)$</p>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161126504.png"></p>
+<p><strong>池化层（Pooling layer）</strong><br>1、数据降维，方便计算和存储。降维有两种方法：max pooling&#x2F;average pooling</p>
+<p>2、池化过程中，每张特征图单独降维。</p>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161130975.png"></p>
+<p>**归一化层（Normalization Layer）  **</p>
+<p>在训练过程中，每个批次的输入数据分布可能不同，导致网络每次看到的数据分布不一致。归一化层在每个批次中计算均值和方差，将输入数据归一化，有助于使不同批次的数据分布更加稳定，提高网络的鲁棒性。</p>
+<p>归一化层必须放在非线性激励层之前。</p>
+<p>归一化层主要有两种方式：批量归一化（Batch Normalization，BN）和近邻归一化（Local Response  Normalization)</p>
+<p><strong>切分层（Slice Layer）</strong><br>在某些应用中，希望独立对某些区域单独学习。</p>
+<p>好处：学习多套参数，更强的特征和描述能力。</p>
+<p><strong>融合层（Merge Layer）</strong><br>对独立进行特征学习的分支进行融合，构建高效而精简的特征组合。</p>
+<h3 id="LENet"><a href="#LENet" class="headerlink" title="LENet"></a>LENet</h3><p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161439285.png"></p>
+<p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161440201.png"></p>
+<h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161442875.png"></p>
+<h3 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h3><p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161445905.png"></p>
+<h3 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h3><p><img src="https://blog-1300147235.cos.ap-chengdu.myqcloud.com/202401161453763.png"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Dar1in9</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://dar1in9s.github.io/2024/01/12/机器学习/卷积神经网络/">http://dar1in9s.github.io/2024/01/12/机器学习/卷积神经网络/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://Dar1in9s.github.io">Dar1in9's Blog</a>！</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2024/05/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/pytorch%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"><i class="fa fa-chevron-left">  </i><span>pytorch常用函数</span></a></div><div class="next-post pull-right"><a href="/2023/12/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/pytorch/"><span>pytorch</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://blog-1300147235.cos.ap-chengdu.myqcloud.com/Background2.png)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2024 By Dar1in9</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script src="/js/search/algolia.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
